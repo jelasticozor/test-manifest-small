@@ -1,0 +1,25 @@
+type: install
+name: Test manifest small
+
+settings:
+  fields:
+    - name: mainReplicas
+      caption: Main Replicas
+      type: string
+      required: true
+    - name: mainCloudlets
+      caption: Main Cloudlets
+      type: string
+      required: true
+
+nodes:
+- displayName: application
+  count: 1
+  cloudlets: 4
+  nodeGroup: cp
+  nodeType: docker
+  image: jelasticozor/settings-displayer-app:latest
+skipNodeEmails: true
+
+# TODO: 
+# - write the settings in a json file that can be read by the app
