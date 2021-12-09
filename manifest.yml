@@ -12,6 +12,9 @@ settings:
       type: string
       required: true
 
+globals:
+  PATH_TO_JSON: /app/settings.json
+
 nodes:
 - displayName: application
   count: 1
@@ -19,7 +22,14 @@ nodes:
   nodeGroup: cp
   nodeType: docker
   image: jelasticozor/settings-displayer-app:latest
+  env:
+    PATH_TO_JSON: ${globals.PATH_TO_JSON}
 skipNodeEmails: true
 
-# TODO: 
-# - write the settings in a json file that can be read by the app
+onInstall:
+  - cmd[cp]:
+      - |
+        echo "{" > ${globals.PATH_TO_JSON} 
+        echo "\"mainReplicas\": ${settings.mainReplicas}, " >> ${globals.PATH_TO_JSON}
+        echo "\"mainCloudlets\": ${settings.mainCloudlets}" >> ${globals.PATH_TO_JSON}
+        echo "}" >> ${globals.PATH_TO_JSON}

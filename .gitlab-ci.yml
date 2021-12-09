@@ -1,5 +1,3 @@
-image: bash:5
-    
 build:
   script:
-    - echo "hello world"
+    - exit 0
